@@ -1,1 +1,1 @@
-# neaural-network-graph-visulisation
+# neural-network-graph-visulisation
