@@ -13,9 +13,3 @@ body,
 .controls {
   padding-bottom: 5px;
 }
-
-.react-flow__node-custom {
-  padding: 10px;
-  background-color: #556677;
-  color: white;
-}

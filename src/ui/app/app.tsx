@@ -7,7 +7,9 @@ import ReactFlow, {
   Connection,
   useNodesState,
   useEdgesState,
-  Controls
+  Controls,
+  BackgroundVariant,
+  MiniMap
 } from 'reactflow';
 import './app.css';
 import 'reactflow/dist/style.css';
@@ -15,7 +17,7 @@ import 'reactflow/dist/style.css';
 const initialNodes: Node[] = [
   {
     id: '1',
-    type: 'input',
+    //type: 'input',
     data: { label: 'Node 1' },
     position: { x: 250, y: 0 }
   },
@@ -40,6 +42,7 @@ function App() {
     <div className="App">
       {JSON.stringify(selectedNode)}
       <ReactFlow
+        data-testid="reactflow"
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}
@@ -48,7 +51,21 @@ function App() {
         onSelectionChange={onSelectedNodeChange}
         fitView
       >
-        <Background />
+        <Background
+          id="1"
+          gap={10}
+          color="#757474"
+          variant={BackgroundVariant.Lines}
+          data-testid="background"
+        />
+        <Background
+          id="2"
+          gap={100}
+          offset={1}
+          color="#000000"
+          variant={BackgroundVariant.Lines}
+        />
+        <MiniMap nodeStrokeWidth={3} position="top-left" zoomable pannable />
         <Controls className="controls" showFitView={false} />
       </ReactFlow>
     </div>
