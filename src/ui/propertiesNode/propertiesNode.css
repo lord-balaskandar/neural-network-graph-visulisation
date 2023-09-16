@@ -1,0 +1,20 @@
+.propertiesNode {
+  height: fit-content;
+  min-width: 100px;
+  width: fit-content;
+  border: 1px solid black;
+  padding: 0px;
+  border-radius: 5px;
+  background: white;
+  max-width: 400px;
+}
+
+.properties {
+  border-top: 1px solid black;
+  text-align: left;
+  font-size: 7px;
+}
+
+.labelInput {
+  font-size: 12px;
+}

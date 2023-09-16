@@ -1,0 +1,14 @@
+.noPropertiesNode {
+  height: fit-content;
+  min-width: 100px;
+  width: fit-content;
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 5px;
+  background: white;
+  max-width: 400px;
+}
+
+.labelInput {
+  font-size: 12px;
+}

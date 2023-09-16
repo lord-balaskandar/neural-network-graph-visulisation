@@ -11,41 +11,26 @@ import ReactFlow, {
   BackgroundVariant,
   MiniMap
 } from 'reactflow';
-import './app.css';
-import 'reactflow/dist/style.css';
-import NoPropertiesNode from '../noPropertiesNode/noPropertiesNode';
-import PropertiesNode from '../propertiesNode/propertiesNode';
+import NoPropertiesNode from '../../../ui/noPropertiesNode/noPropertiesNode';
+import PropertiesNode from '../../../ui/propertiesNode/propertiesNode';
+import { render, screen } from '@testing-library/react';
 
 const initialNodes: Node[] = [
   {
     id: '1',
-    type: 'noProperties',
+    type: 'properties',
     //type: 'input',
-    data: { label: 'Node 1' },
+    data: { label: 'Node 1', parameters: { test: 'hello world' } },
     position: { x: 250, y: 0 }
-  },
-  {
-    id: '2',
-    data: {
-      label: 'Node 2',
-      parameters: { W: '(100x32x48)', H: '(200x34x56)' }
-    },
-    position: { x: 100, y: 100 },
-    type: 'properties'
-  },
-  { id: '3', data: { label: 'Node 3' }, position: { x: 400, y: 100 } }
+  }
 ];
 
-const initialEdges: Edge[] = [
-  { id: 'e1-2', source: '1', target: '2', animated: true },
-  { id: 'e1-3', source: '1', target: '3' }
-];
+const initialEdges: Edge[] = [];
 
 function App() {
   const [nodes, , onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [selectedNode, onSelectedNodeChange] = useState({});
-  const [locked, setLock] = useState(false);
   const nodeTypes = useMemo(
     () => ({ noProperties: NoPropertiesNode, properties: PropertiesNode }),
     []
@@ -74,7 +59,7 @@ function App() {
           gap={10}
           color="#757474"
           variant={BackgroundVariant.Lines}
-          className="background"
+          data-testid="background"
         />
         <Background
           id="2"
@@ -82,7 +67,6 @@ function App() {
           offset={1}
           color="#000000"
           variant={BackgroundVariant.Lines}
-          className="background"
         />
         <MiniMap nodeStrokeWidth={3} position="top-left" zoomable pannable />
         <Controls className="controls" showFitView={false} />
@@ -91,4 +75,8 @@ function App() {
   );
 }
 
-export default App;
+test('properties', () => {
+  render(<App />);
+  const linkElement = screen.getByText(/test: hello world/);
+  expect(linkElement).toBeInTheDocument();
+});

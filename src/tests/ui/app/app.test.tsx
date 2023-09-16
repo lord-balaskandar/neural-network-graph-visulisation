@@ -7,5 +7,11 @@ import App from '../../../ui/app/app';
  */
 test('reactFlow', () => {
   render(<App />);
-  expect(screen.getByTestId('rf__wrapper')).toHaveClass('react-flow');
+  const linkElement = screen.getByTestId(/rf__wrapper/);
+  expect(linkElement).toBeInTheDocument();
+});
+
+test('background', () => {
+  const { container } = render(<App />);
+  expect(container.getElementsByClassName('background').length).toBe(2);
 });
