@@ -1,41 +1,15 @@
 {
   "nodes": [
-    {
-      "id": "1",
-      "type": "noProperties",
-      "data": {
-        "label": "Node 1"
-      },
-      "position": {
-        "x": 250,
-        "y": 0
-      }
-    },
+    { "id": "1", "type": "Node 1" },
     {
       "id": "2",
-      "data": {
+      "type": "Node 2",
+      "parameters": {
         "label": "Node 2",
-        "parameters": {
-          "W": "(100x32x48)",
-          "H": "(200x34x56)"
-        }
-      },
-      "position": {
-        "x": 100,
-        "y": 100
-      },
-      "type": "properties"
-    },
-    {
-      "id": "3",
-      "data": {
-        "label": "Node 3"
-      },
-      "position": {
-        "x": 400,
-        "y": 100
+        "parameters": { "W": "(100x32x48)", "H": "(200x34x56)" }
       }
-    }
+    },
+    { "id": "3", "type": "Node 3" }
   ],
   "edges": [
     {

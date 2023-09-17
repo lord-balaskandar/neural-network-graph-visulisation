@@ -31,7 +31,15 @@ const initialNodes: Node[] = [
     id: '2',
     data: {
       label: 'Node 2',
-      parameters: { W: '(100x32x48)', H: '(200x34x56)' }
+      parameters: {
+        W: '(100x32x48)',
+        H: '(200x34x56)',
+        x: 'x',
+        y: 'y',
+        z: 'z',
+        t: 'T',
+        tt: 'TT'
+      }
     },
     position: { x: 100, y: 100 },
     type: 'properties'
@@ -45,8 +53,8 @@ const initialEdges: Edge[] = [
 ];
 
 function App() {
-  const [nodes, , onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [nodes, setNodes, onNodesChange] = useNodesState([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [selectedNode, onSelectedNodeChange] = useState({});
   const [locked, setLock] = useState(false);
   const [openFileUpload, setOpenFileUpload] = useState(false);
@@ -71,6 +79,8 @@ function App() {
         <FileUploadDialog
           openModal={openFileUpload}
           setOpenModal={setOpenFileUpload}
+          setNodes={setNodes}
+          setEdges={setEdges}
         />
       </div>
       <ReactFlow

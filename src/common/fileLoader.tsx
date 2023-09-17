@@ -2,12 +2,21 @@ class FileLoader {
   private static instance: FileLoader;
   private loadedData: object = {};
 
-  getInstance() {
+  static getInstance() {
     if (!FileLoader.instance) FileLoader.instance = new FileLoader();
     return FileLoader.instance;
   }
 
-  setFile(path: string) {
+  setFile(e: any) {
+    const fileReader = new FileReader();
+    fileReader.readAsText(e.target.files[0]);
+    fileReader.onload = (e: any) => {
+      console.log(e.target.result);
+    };
+    console.log(e);
+  }
+
+  setFileDefault(path: string) {
     fetch(path, {
       headers: {
         'Content-Type': 'application/json',
