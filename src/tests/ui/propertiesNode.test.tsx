@@ -11,8 +11,8 @@ import ReactFlow, {
   BackgroundVariant,
   MiniMap
 } from 'reactflow';
-import NoPropertiesNode from '../../../ui/noPropertiesNode/noPropertiesNode';
-import PropertiesNode from '../../../ui/propertiesNode/propertiesNode';
+import NoPropertiesNode from '../../ui/noPropertiesNode/noPropertiesNode';
+import PropertiesNode from '../../ui/propertiesNode/propertiesNode';
 import { render, screen } from '@testing-library/react';
 
 const initialNodes: Node[] = [
