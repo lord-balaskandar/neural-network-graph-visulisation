@@ -88,9 +88,11 @@ function FileUploadDialog({
   return (
     <>
       <div className="main-container">
-        <div className="modal-container">
-          <h3>JSON Upload</h3>
-          <div>
+        <div className={'modal-container'}>
+          <h3 className={'text' + +(openModal ? 'show' : 'closed')}>
+            JSON Upload
+          </h3>
+          <div className={'text' + +(openModal ? 'show' : 'closed')}>
             Please select a JSON file to upload and use with the solution.
           </div>
           <div>
