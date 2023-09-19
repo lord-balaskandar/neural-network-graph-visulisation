@@ -2,7 +2,6 @@ import { useState, useCallback, useMemo } from 'react';
 import NoPropertiesNode from '../noPropertiesNode/noPropertiesNode';
 import PropertiesNode from '../propertiesNode/propertiesNode';
 import FileUploadDialog from '../fileUploadDialog/fileUploadDialog';
-import FileLoader from '../../common/fileLoader';
 import ReactFlow, {
   Node,
   addEdge,
@@ -58,6 +57,8 @@ function App() {
   const [selectedNode, onSelectedNodeChange] = useState({});
   const [locked, setLock] = useState(false);
   const [openFileUpload, setOpenFileUpload] = useState(false);
+  const [showToolTip, setShowToolTip] = useState(false);
+  const [toolTipData, setToolTipData] = useState({ content: '', x: 0, y: 0 });
 
   const nodeTypes = useMemo(
     () => ({ noProperties: NoPropertiesNode, properties: PropertiesNode }),
@@ -68,6 +69,29 @@ function App() {
     (params: Edge | Connection) => setEdges((els) => addEdge(params, els)),
     [setEdges]
   );
+
+  const nodeOnHoverEnter = useCallback((e: React.MouseEvent, node: Node) => {
+    setToolTipData({
+      content: node.data.label,
+      x: e.clientX,
+      y: e.clientY
+    });
+    setShowToolTip(true);
+  }, []);
+
+  const nodeOnHoverLeave = useCallback((e: React.MouseEvent, node: Node) => {
+    setShowToolTip(false);
+  }, []);
+
+  const nodeMouseUpdate = useCallback((e: React.MouseEvent, node: Node) => {
+    setToolTipData({
+      content: node.data.label,
+      x: e.clientX,
+      y: e.clientY
+    });
+    setShowToolTip(true);
+  }, []);
+
   return (
     <div className="App">
       {JSON.stringify(selectedNode)}
@@ -83,6 +107,16 @@ function App() {
           setEdges={setEdges}
         />
       </div>
+      <div
+        className="toolTip"
+        style={{
+          visibility: showToolTip ? 'visible' : 'hidden',
+          left: toolTipData.x + 10,
+          top: toolTipData.y + 10
+        }}
+      >
+        {toolTipData.content}
+      </div>
       <ReactFlow
         data-testid="reactflow"
         nodes={nodes}
@@ -91,6 +125,9 @@ function App() {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         onSelectionChange={onSelectedNodeChange}
+        onNodeMouseEnter={nodeOnHoverEnter}
+        onNodeMouseLeave={nodeOnHoverLeave}
+        onNodeMouseMove={nodeMouseUpdate}
         nodeTypes={nodeTypes}
         fitView
       >
