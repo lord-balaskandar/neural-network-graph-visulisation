@@ -17,49 +17,16 @@ import ReactFlow, {
 } from 'reactflow';
 import './app.css';
 import 'reactflow/dist/style.css';
-
-const initialNodes: Node[] = [
-  {
-    id: '1',
-    type: 'noProperties',
-    //type: 'input',
-    data: { label: 'Node 1' },
-    position: { x: 250, y: 0 }
-  },
-  {
-    id: '2',
-    data: {
-      label: 'Node 2',
-      parameters: {
-        W: '(100x32x48)',
-        H: '(200x34x56)',
-        x: 'x',
-        y: 'y',
-        z: 'z',
-        t: 'T',
-        tt: 'TT'
-      }
-    },
-    position: { x: 100, y: 100 },
-    type: 'properties'
-  },
-  { id: '3', data: { label: 'Node 3' }, position: { x: 400, y: 100 } }
-];
-
-const initialEdges: Edge[] = [
-  { id: 'e1-2', source: '1', target: '2', animated: true },
-  { id: 'e1-3', source: '1', target: '3' }
-];
+import ParameterInput from '../paramaterInput/parameterInput';
 
 function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  const [selectedNode, onSelectedNodeChange] = useState({});
-  const [locked, setLock] = useState(false);
+  const [selectedNode, setSelectedNode] = useState({ nodes: [], edges: [] });
   const [openFileUpload, setOpenFileUpload] = useState(false);
   const [showToolTip, setShowToolTip] = useState(false);
   const [toolTipData, setToolTipData] = useState({ content: '', x: 0, y: 0 });
-
+  const [showSideBar, setShowSideBar] = useState(false);
   const nodeTypes = useMemo(
     () => ({ noProperties: NoPropertiesNode, properties: PropertiesNode }),
     []
@@ -92,9 +59,26 @@ function App() {
     setShowToolTip(true);
   }, []);
 
+  const onSelectionChange = useCallback(
+    (params: any) => {
+      setSelectedNode(params);
+      setShowSideBar(params.nodes.length > 0);
+    },
+    [setSelectedNode, setShowSideBar]
+  );
+
+  const handleLabelChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      nodes[
+        nodes.map((item) => item.id).indexOf(event.target.id.split(':')[1])
+      ].data.parameters[event.target.id.split(':')[0]] = event.target.value;
+      setNodes(nodes);
+    },
+    [nodes, setNodes]
+  );
+
   return (
     <div className="App">
-      {JSON.stringify(selectedNode)}
       <div
         className={
           'fileUploadContainer ' + (openFileUpload ? 'show' : 'closed')
@@ -106,6 +90,30 @@ function App() {
           setNodes={setNodes}
           setEdges={setEdges}
         />
+      </div>
+      <div className={'sidebar-container ' + (showSideBar ? 'show' : 'closed')}>
+        {selectedNode.nodes.map((node: Node) => {
+          return (
+            <div className="sidebar">
+              <h3>{node.id}</h3>
+              {<div>{'Type: ' + node.data.label}</div>}
+              {node.type === 'properties' ? (
+                <div>
+                  <ParameterInput
+                    node={node}
+                    nodes={nodes}
+                    setNodes={setNodes}
+                  />
+                </div>
+              ) : (
+                <></>
+              )}
+              <div>
+                <button>Add Parameter</button>
+              </div>
+            </div>
+          );
+        })}
       </div>
       <div
         className="toolTip"
@@ -124,7 +132,7 @@ function App() {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
-        onSelectionChange={onSelectedNodeChange}
+        onSelectionChange={onSelectionChange}
         onNodeMouseEnter={nodeOnHoverEnter}
         onNodeMouseLeave={nodeOnHoverLeave}
         onNodeMouseMove={nodeMouseUpdate}
