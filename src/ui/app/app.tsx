@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import NoPropertiesNode from '../noPropertiesNode/noPropertiesNode';
 import PropertiesNode from '../propertiesNode/propertiesNode';
 import FileUploadDialog from '../fileUploadDialog/fileUploadDialog';
@@ -27,6 +27,7 @@ function App() {
   const [showToolTip, setShowToolTip] = useState(false);
   const [toolTipData, setToolTipData] = useState({ content: '', x: 0, y: 0 });
   const [showSideBar, setShowSideBar] = useState(false);
+  const [sideBarKey, updateSidebarKey] = useState(0);
   const nodeTypes = useMemo(
     () => ({ noProperties: NoPropertiesNode, properties: PropertiesNode }),
     []
@@ -77,6 +78,36 @@ function App() {
     [nodes, setNodes]
   );
 
+  const addParameter = useCallback(
+    (e: any) => {
+      let temp = nodes;
+      temp[temp.map((item) => item.id).indexOf(e.target.id)].data.parameters[
+        '  '
+      ] = '   ';
+      setNodes(temp);
+      let temp2 = selectedNode;
+      let temp3 = selectedNode.nodes as typeof nodes;
+      temp3[temp3.map((item) => item.id).indexOf(e.target.id)].data.parameters[
+        '  '
+      ] = '   ';
+      temp2.nodes = temp3 as never[];
+      setSelectedNode(temp2);
+      updateSidebarKey(sideBarKey + 1);
+    },
+    [
+      nodes,
+      setNodes,
+      selectedNode,
+      setSelectedNode,
+      sideBarKey,
+      updateSidebarKey
+    ]
+  );
+
+  useEffect(() => {
+    setOpenFileUpload(true);
+  }, []);
+
   return (
     <div className="App">
       <div
@@ -91,7 +122,10 @@ function App() {
           setEdges={setEdges}
         />
       </div>
-      <div className={'sidebar-container ' + (showSideBar ? 'show' : 'closed')}>
+      <div
+        key={sideBarKey}
+        className={'sidebar-container ' + (showSideBar ? 'show' : 'closed')}
+      >
         {selectedNode.nodes.map((node: Node) => {
           return (
             <div className="sidebar">
@@ -103,13 +137,17 @@ function App() {
                     node={node}
                     nodes={nodes}
                     setNodes={setNodes}
+                    sideBarKey={sideBarKey}
+                    updateSideBarKey={updateSidebarKey}
                   />
                 </div>
               ) : (
                 <></>
               )}
               <div>
-                <button>Add Parameter</button>
+                <button id={node.id} onClick={addParameter}>
+                  Add Parameter
+                </button>
               </div>
             </div>
           );
@@ -157,7 +195,7 @@ function App() {
         <MiniMap nodeStrokeWidth={3} position="top-left" zoomable pannable />
         <Controls className="controls" showFitView={false}>
           <ControlButton onClick={() => setOpenFileUpload(true)} title="upload">
-            U
+            🡅
           </ControlButton>
         </Controls>
       </ReactFlow>

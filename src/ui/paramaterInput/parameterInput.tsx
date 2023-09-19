@@ -4,11 +4,15 @@ import { useState, useCallback } from 'react';
 function ParameterInput({
   node,
   nodes,
-  setNodes
+  setNodes,
+  sideBarKey,
+  updateSideBarKey
 }: {
   node: any;
   nodes: any[];
   setNodes: Function;
+  sideBarKey: number;
+  updateSideBarKey: Function;
 }) {
   const [values, setValues] = useState(node.data.parameters);
 
@@ -23,6 +27,19 @@ function ParameterInput({
       setNodes(nodes);
     },
     [node, nodes, setNodes]
+  );
+
+  const removeParamter = useCallback(
+    (event: any) => {
+      console.log(event);
+      let temp = nodes;
+      delete temp[temp.map((item) => item.id).indexOf(node.id)].data.parameters[
+        event.target.id.slice(1)
+      ];
+      setNodes(temp);
+      updateSideBarKey(sideBarKey + 1);
+    },
+    [node, nodes, setNodes, sideBarKey, updateSideBarKey]
   );
 
   const handleKeyChange = useCallback(
@@ -62,6 +79,9 @@ function ParameterInput({
             defaultValue={values[key]}
             onChange={handleLabelChange}
           />
+          <button id={'x' + key} onClick={removeParamter}>
+            X
+          </button>
         </div>
       ))}
     </div>

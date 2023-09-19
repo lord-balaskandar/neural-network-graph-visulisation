@@ -64,9 +64,9 @@ body,
 }
 
 .sidebar-container {
-  width: 20%;
+  width: 25%;
+  min-width: 357px;
   height: 100vh;
-  margin-left: 80%;
   position: absolute;
   opacity: 1;
   color: black;
@@ -81,7 +81,7 @@ body,
 }
 
 .sidebar-container.closed {
-  margin-left: 120%;
+  margin-left: 150%;
 }
 
 .sidebar-container.show {
