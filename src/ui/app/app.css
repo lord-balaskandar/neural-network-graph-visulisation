@@ -33,6 +33,7 @@ body,
   opacity: 1;
   color: black;
   transition: 0.3s all; /* animation duration */
+  z-index: 100;
 }
 .toolTip {
   width: fit-content;
@@ -64,4 +65,13 @@ body,
 
 ReactFlow {
   z-index: -1;
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
