@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import './fileUploadDialog.css';
 import dagre from 'dagre';
 
@@ -51,12 +51,25 @@ function FileUploadDialog({
   setNodes: Function;
   setEdges: Function;
 }) {
+  const [invalidFile, setInvalidFile] = useState(false);
+  const file: any = useRef(null);
   function handleFileChange(e: any) {
-    const fileReader = new FileReader();
-    fileReader.readAsText(e.target.files[0]);
-    fileReader.onload = (e: any) => {
-      try {
-        let data = JSON.parse(e.target.result);
+    try {
+      const fileReader = new FileReader();
+      fileReader.readAsText(e.target.files[0]);
+      let data: {
+        nodes: { id: string; type: string; parameters: object | null }[];
+        edges: any;
+      };
+      fileReader.onload = (e: any) => {
+        try {
+          data = JSON.parse(e.target.result);
+        } catch (e2) {
+          console.log(e2);
+          file.current.value = null;
+          setInvalidFile(true);
+          return;
+        }
         let formatted = getLayoutedElements(
           data.nodes.map(
             (item: { id: string; type: string; parameters: object | null }) => {
@@ -75,16 +88,17 @@ function FileUploadDialog({
           data.edges,
           'TB'
         );
+        file.current.value = null;
 
         setNodes(formatted.nodes);
         setEdges(formatted.edges);
         setOpenModal(false);
-      } catch (err) {
-        console.log(err);
-      }
-    };
+        setInvalidFile(false);
+      };
+    } catch (err) {
+      console.log(err);
+    }
   }
-
   return (
     <>
       <div className="main-container">
@@ -101,7 +115,17 @@ function FileUploadDialog({
               type="file"
               onChange={handleFileChange}
               title="Upload"
+              accept=".json,application/json"
+              ref={file}
             />
+            <p
+              style={{
+                color: 'red',
+                visibility: invalidFile ? 'visible' : 'hidden'
+              }}
+            >
+              Invalid File
+            </p>
             <button onClick={() => setOpenModal(false)}>Close</button>
           </div>
         </div>
