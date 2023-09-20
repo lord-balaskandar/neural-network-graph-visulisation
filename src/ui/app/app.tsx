@@ -65,6 +65,7 @@ function App() {
     (params: any) => {
       setSelectedNode(params);
       setShowSideBar(params.nodes.length > 0 || params.edges.length > 0);
+      updateSidebarKey(sideBarKey + 1);
     },
     [setSelectedNode, setShowSideBar]
   );
@@ -120,6 +121,9 @@ function App() {
     updateReactFlowKey(reactFlowKey + 1);
   }, [nodes, setNodes]);
 
+  /**
+   * Function to download diagram into JSON file
+   */
   function downloadJSON() {
     const fileData = JSON.stringify({
       nodes: nodes.map((item) => {

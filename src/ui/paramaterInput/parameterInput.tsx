@@ -8,7 +8,8 @@ function ParameterInput({
   sideBarKey,
   updateSideBarKey,
   reactFlowKey,
-  updateReactFlowKey
+  updateReactFlowKey,
+  selectedNodes
 }: {
   node: any;
   nodes: any[];
@@ -17,6 +18,7 @@ function ParameterInput({
   updateSideBarKey: Function;
   reactFlowKey: number;
   updateReactFlowKey: Function;
+  selectedNodes: any[];
 }) {
   const [values, setValues] = useState(node.data.parameters);
   const [parametersKey, updateParametersKey] = useState(node.id + ':' + 0);
@@ -64,7 +66,6 @@ function ParameterInput({
 
       setValues(newObj);
       setNodes(nodes);
-      updateReactFlowKey(reactFlowKey + 1);
       // updateParametersKey(
       //   node.id + ':' + (parseInt(parametersKey.split(':')[1]) + 1)
       // );

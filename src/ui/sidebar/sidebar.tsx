@@ -83,7 +83,7 @@ function Sidebar({
     >
       {selectedNode.nodes.map((node: any) => {
         return (
-          <div className="sidebar">
+          <div key={JSON.stringify(selectedNode)} className="sidebar">
             <h3 className="nodeTitle">{'Node ' + node.id}</h3>
             {
               <div>
@@ -110,6 +110,7 @@ function Sidebar({
                   updateSideBarKey={updateSidebarKey}
                   reactFlowKey={reactFlowKey}
                   updateReactFlowKey={updateReactFlowKey}
+                  selectedNodes={selectedNode}
                 />
               </div>
             ) : (
