@@ -1,0 +1,502 @@
+{
+  "nodes": [
+    {
+      "id": "24",
+      "type": "max pool",
+      "parameters": {},
+      "position": { "x": 375, "y": 1000 }
+    },
+    {
+      "id": "23",
+      "type": "max pool",
+      "parameters": {},
+      "position": { "x": 75, "y": 1000 }
+    },
+    {
+      "id": "22",
+      "type": "relu",
+      "parameters": {},
+      "position": { "x": 375, "y": 900 }
+    },
+    {
+      "id": "21",
+      "type": "relu",
+      "parameters": {},
+      "position": { "x": 75, "y": 900 }
+    },
+    {
+      "id": "20",
+      "type": "conv",
+      "parameters": { "  w": "   13x3x3" },
+      "position": { "x": 375, "y": 800 }
+    },
+    {
+      "id": "19",
+      "type": "relu",
+      "parameters": {},
+      "position": { "x": 375, "y": 700 }
+    },
+    {
+      "id": "18",
+      "type": "relu",
+      "parameters": {},
+      "position": { "x": 75, "y": 700 }
+    },
+    {
+      "id": "17",
+      "type": "max pool",
+      "parameters": {},
+      "position": { "x": 150, "y": 300 }
+    },
+    {
+      "id": "16",
+      "type": "conv",
+      "parameters": { "  w": "   13x3x3" },
+      "position": { "x": 75, "y": 800 }
+    },
+    {
+      "id": "15",
+      "type": "max pool",
+      "parameters": {},
+      "position": { "x": 375, "y": 600 }
+    },
+    {
+      "id": "14",
+      "type": "max pool",
+      "parameters": {},
+      "position": { "x": 75, "y": 600 }
+    },
+    {
+      "id": "13",
+      "type": "conv",
+      "parameters": { "  w": "   128x3x3" },
+      "position": { "x": 450, "y": 500 }
+    },
+    {
+      "id": "12",
+      "type": "conv",
+      "parameters": { "  w": "   128x3x3" },
+      "position": { "x": 150, "y": 500 }
+    },
+    {
+      "id": "11",
+      "type": "conv",
+      "parameters": { "w  ": "128x3x3" },
+      "position": { "x": 300, "y": 500 }
+    },
+    {
+      "id": "10",
+      "type": "conv",
+      "parameters": { "  w": "128x3x3" },
+      "position": { "x": 0, "y": 500 }
+    },
+    {
+      "id": "9",
+      "type": "relu",
+      "parameters": {},
+      "position": { "x": 300, "y": 400 }
+    },
+    {
+      "id": "8",
+      "type": "relu",
+      "parameters": {},
+      "position": { "x": 150, "y": 400 }
+    },
+    {
+      "id": "7",
+      "type": "max pool",
+      "parameters": {},
+      "position": { "x": 300, "y": 300 }
+    },
+    {
+      "id": "5",
+      "type": "conv",
+      "parameters": { "  w": "   5x5x48" },
+      "position": { "x": 300, "y": 200 }
+    },
+    {
+      "id": "4",
+      "type": "conv",
+      "parameters": { "  w": "5x5x48" },
+      "position": { "x": 100, "y": 200 }
+    },
+    {
+      "id": "3",
+      "type": "relu",
+      "parameters": {},
+      "position": { "x": 300, "y": 100 }
+    },
+    {
+      "id": "2",
+      "type": "relu",
+      "parameters": {},
+      "position": { "x": 100, "y": 100 }
+    },
+    {
+      "id": "1",
+      "type": "conv",
+      "parameters": { "  w": "   224x224x3", "b": "   4" },
+      "position": { "x": 175, "y": 0 }
+    },
+    {
+      "id": "25",
+      "type": "dense",
+      "parameters": {},
+      "position": { "x": 225, "y": 1100 }
+    }
+  ],
+  "edges": [
+    {
+      "source": "1",
+      "sourceHandle": "a",
+      "target": "2",
+      "targetHandle": null,
+      "id": "reactflow__edge-1a-2",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "1",
+      "sourceHandle": "a",
+      "target": "3",
+      "targetHandle": null,
+      "id": "reactflow__edge-1a-3",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "2",
+      "sourceHandle": "a",
+      "target": "4",
+      "targetHandle": null,
+      "id": "reactflow__edge-2a-4",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "3",
+      "sourceHandle": "a",
+      "target": "5",
+      "targetHandle": null,
+      "id": "reactflow__edge-3a-5",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "4",
+      "sourceHandle": "a",
+      "target": "6",
+      "targetHandle": null,
+      "id": "reactflow__edge-4a-6",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "5",
+      "sourceHandle": "a",
+      "target": "7",
+      "targetHandle": null,
+      "id": "reactflow__edge-5a-7",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "7",
+      "sourceHandle": "a",
+      "target": "9",
+      "targetHandle": null,
+      "id": "reactflow__edge-7a-9",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "8",
+      "sourceHandle": "a",
+      "target": "10",
+      "targetHandle": null,
+      "id": "reactflow__edge-8a-10",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "8",
+      "sourceHandle": "a",
+      "target": "11",
+      "targetHandle": null,
+      "id": "reactflow__edge-8a-11",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "9",
+      "sourceHandle": "a",
+      "target": "12",
+      "targetHandle": null,
+      "id": "reactflow__edge-9a-12",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "9",
+      "sourceHandle": "a",
+      "target": "13",
+      "targetHandle": null,
+      "id": "reactflow__edge-9a-13",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "10",
+      "sourceHandle": "a",
+      "target": "14",
+      "targetHandle": null,
+      "id": "reactflow__edge-10a-14",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "11",
+      "sourceHandle": "a",
+      "target": "15",
+      "targetHandle": null,
+      "id": "reactflow__edge-11a-15",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "13",
+      "sourceHandle": "a",
+      "target": "15",
+      "targetHandle": null,
+      "id": "reactflow__edge-13a-15",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "12",
+      "sourceHandle": "a",
+      "target": "14",
+      "targetHandle": null,
+      "id": "reactflow__edge-12a-14",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "4",
+      "sourceHandle": "a",
+      "target": "17",
+      "targetHandle": null,
+      "id": "reactflow__edge-4a-17",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "17",
+      "sourceHandle": "a",
+      "target": "8",
+      "targetHandle": null,
+      "id": "reactflow__edge-17a-8",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "14",
+      "sourceHandle": "a",
+      "target": "18",
+      "targetHandle": null,
+      "id": "reactflow__edge-14a-18",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "18",
+      "sourceHandle": "a",
+      "target": "16",
+      "targetHandle": null,
+      "id": "reactflow__edge-18a-16",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "15",
+      "sourceHandle": "a",
+      "target": "19",
+      "targetHandle": null,
+      "id": "reactflow__edge-15a-19",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "19",
+      "sourceHandle": "a",
+      "target": "20",
+      "targetHandle": null,
+      "id": "reactflow__edge-19a-20",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "16",
+      "sourceHandle": "a",
+      "target": "21",
+      "targetHandle": null,
+      "id": "reactflow__edge-16a-21",
+      "selected": false,
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "20",
+      "sourceHandle": "a",
+      "target": "22",
+      "targetHandle": null,
+      "id": "reactflow__edge-20a-22",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "21",
+      "sourceHandle": "a",
+      "target": "23",
+      "targetHandle": null,
+      "id": "reactflow__edge-21a-23",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "22",
+      "sourceHandle": "a",
+      "target": "24",
+      "targetHandle": null,
+      "id": "reactflow__edge-22a-24",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "23",
+      "sourceHandle": "a",
+      "target": "25",
+      "targetHandle": null,
+      "id": "reactflow__edge-23a-25",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "source": "24",
+      "sourceHandle": "a",
+      "target": "25",
+      "targetHandle": null,
+      "id": "reactflow__edge-24a-25",
+      "markerEnd": {
+        "type": "arrow",
+        "color": "#000000",
+        "width": 20,
+        "height": 20
+      }
+    }
+  ]
+}

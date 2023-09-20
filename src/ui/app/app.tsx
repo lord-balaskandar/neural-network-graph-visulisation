@@ -100,11 +100,13 @@ function App() {
       nodes.concat([
         {
           id:
-            parseInt(
-              nodes.sort((a, b) => parseInt(b.id) - parseInt(a.id))[0].id
-            ) +
-            1 +
-            '',
+            nodes.length > 0
+              ? parseInt(
+                  nodes.sort((a, b) => parseInt(b.id) - parseInt(a.id))[0].id
+                ) +
+                1 +
+                ''
+              : '1',
           data: {
             label: 'conv',
             parameters: {},
