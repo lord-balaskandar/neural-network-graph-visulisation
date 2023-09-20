@@ -113,6 +113,8 @@ function App() {
         selectedNode={selectedNode}
         nodes={nodes}
         setNodes={setNodes}
+        edges={edges}
+        setEdges={setEdges}
         addParameter={addParameter}
         reactFlowKey={reactFlowKey}
         updateReactFlowKey={updateReactFlowKey}
