@@ -118,8 +118,24 @@ function App() {
     updateReactFlowKey(reactFlowKey + 1);
   }, [nodes, setNodes]);
 
-  function timeout(delay: number) {
-    return new Promise((res) => setTimeout(res, delay));
+  function downloadJSON() {
+    const fileData = JSON.stringify({
+      nodes: nodes.map((item) => {
+        return {
+          id: item.id,
+          type: item.data.label,
+          parameters: item.data.parameters,
+          position: item.position
+        };
+      }),
+      edges: edges
+    });
+    const blob = new Blob([fileData], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.download = 'network-diagram.json';
+    link.href = url;
+    link.click();
   }
 
   useEffect(() => {
@@ -217,7 +233,9 @@ function App() {
           <ControlButton onClick={() => setOpenFileUpload(true)} title="upload">
             🡅
           </ControlButton>
-          <ControlButton title="Save">💾</ControlButton>
+          <ControlButton onClick={downloadJSON} title="Save">
+            💾
+          </ControlButton>
           <ControlButton onClick={addNewNode} title="New Node">
             ➕
           </ControlButton>
