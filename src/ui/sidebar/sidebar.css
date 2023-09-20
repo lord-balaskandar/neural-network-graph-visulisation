@@ -1,0 +1,24 @@
+.sidebar-container {
+  width: 25%;
+  min-width: 357px;
+  height: 100vh;
+  position: absolute;
+  opacity: 1;
+  color: black;
+  transition: 0.3s all; /* animation duration */
+  z-index: 100;
+  background-color: white;
+  text-align: left;
+}
+
+.sidebar {
+  border-left: 1px, solid, black;
+}
+
+.sidebar-container.closed {
+  margin-left: 150%;
+}
+
+.sidebar-container.show {
+  margin-left: 80%;
+}

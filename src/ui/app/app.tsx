@@ -17,6 +17,7 @@ import ReactFlow, {
 import './app.css';
 import 'reactflow/dist/style.css';
 import ParameterInput from '../paramaterInput/parameterInput';
+import Sidebar from '../sidebar/sidebar';
 
 function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -103,38 +104,15 @@ function App() {
         setEdges={setEdges}
       />
 
-      <div
-        key={sideBarKey}
-        className={'sidebar-container ' + (showSideBar ? 'show' : 'closed')}
-      >
-        {selectedNode.nodes.map((node: Node) => {
-          return (
-            <div className="sidebar">
-              <h3>{node.id}</h3>
-              {<div>{'Type: ' + node.data.label}</div>}
-              {node.data.parameters &&
-              Object.keys(node.data.parameters).length > 0 ? (
-                <div>
-                  <ParameterInput
-                    node={node}
-                    nodes={nodes}
-                    setNodes={setNodes}
-                    sideBarKey={sideBarKey}
-                    updateSideBarKey={updateSidebarKey}
-                  />
-                </div>
-              ) : (
-                <></>
-              )}
-              <div>
-                <button id={node.id} onClick={addParameter}>
-                  Add Parameter
-                </button>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      <Sidebar
+        sideBarKey={sideBarKey}
+        updateSidebarKey={updateSidebarKey}
+        showSideBar={showSideBar}
+        selectedNode={selectedNode}
+        nodes={nodes}
+        setNodes={setNodes}
+        addParameter={addParameter}
+      />
       <div
         className="toolTip"
         style={{
