@@ -1,6 +1,5 @@
 import { useState, useCallback, useMemo, useEffect } from 'react';
-import NoPropertiesNode from '../noPropertiesNode/noPropertiesNode';
-import PropertiesNode from '../propertiesNode/propertiesNode';
+import CustomNode from '../customNode/customNode';
 import FileUploadDialog from '../fileUploadDialog/fileUploadDialog';
 import ReactFlow, {
   Node,
@@ -28,10 +27,7 @@ function App() {
   const [toolTipData, setToolTipData] = useState({ content: '', x: 0, y: 0 });
   const [showSideBar, setShowSideBar] = useState(false);
   const [sideBarKey, updateSidebarKey] = useState(0);
-  const nodeTypes = useMemo(
-    () => ({ noProperties: NoPropertiesNode, properties: PropertiesNode }),
-    []
-  );
+  const nodeTypes = useMemo(() => ({ node: CustomNode }), []);
 
   const onConnect = useCallback(
     (params: Edge | Connection) => setEdges((els) => addEdge(params, els)),
@@ -68,16 +64,6 @@ function App() {
     [setSelectedNode, setShowSideBar]
   );
 
-  const handleLabelChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      nodes[
-        nodes.map((item) => item.id).indexOf(event.target.id.split(':')[1])
-      ].data.parameters[event.target.id.split(':')[0]] = event.target.value;
-      setNodes(nodes);
-    },
-    [nodes, setNodes]
-  );
-
   const addParameter = useCallback(
     (e: any) => {
       let temp = nodes;
@@ -110,18 +96,13 @@ function App() {
 
   return (
     <div className="App">
-      <div
-        className={
-          'fileUploadContainer ' + (openFileUpload ? 'show' : 'closed')
-        }
-      >
-        <FileUploadDialog
-          openModal={openFileUpload}
-          setOpenModal={setOpenFileUpload}
-          setNodes={setNodes}
-          setEdges={setEdges}
-        />
-      </div>
+      <FileUploadDialog
+        openModal={openFileUpload}
+        setOpenModal={setOpenFileUpload}
+        setNodes={setNodes}
+        setEdges={setEdges}
+      />
+
       <div
         key={sideBarKey}
         className={'sidebar-container ' + (showSideBar ? 'show' : 'closed')}
@@ -131,7 +112,8 @@ function App() {
             <div className="sidebar">
               <h3>{node.id}</h3>
               {<div>{'Type: ' + node.data.label}</div>}
-              {node.type === 'properties' ? (
+              {node.data.parameters &&
+              Object.keys(node.data.parameters).length > 0 ? (
                 <div>
                   <ParameterInput
                     node={node}

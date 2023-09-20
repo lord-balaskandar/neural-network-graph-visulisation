@@ -27,14 +27,7 @@ body,
   flex-grow: 1;
   height: 100%;
 }
-.fileUploadContainer {
-  width: 500px;
-  position: absolute;
-  opacity: 1;
-  color: black;
-  transition: 0.3s all; /* animation duration */
-  z-index: 101;
-}
+
 .toolTip {
   width: fit-content;
   position: absolute;
@@ -45,18 +38,6 @@ body,
   box-sizing: border-box;
   border: 1px solid black;
   z-index: 100;
-}
-
-.fileUploadContainer.show {
-  margin-bottom: 10%;
-  opacity: 1;
-  color: black;
-}
-
-.fileUploadContainer.closed {
-  margin-top: 100%;
-  opacity: 0;
-  color: white;
 }
 
 .controls {

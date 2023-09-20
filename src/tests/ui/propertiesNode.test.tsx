@@ -11,14 +11,13 @@ import ReactFlow, {
   BackgroundVariant,
   MiniMap
 } from 'reactflow';
-import NoPropertiesNode from '../../ui/noPropertiesNode/noPropertiesNode';
-import PropertiesNode from '../../ui/propertiesNode/propertiesNode';
+import CustomNode from '../../ui/customNode/customNode';
 import { render, screen } from '@testing-library/react';
 
 const initialNodes: Node[] = [
   {
     id: '1',
-    type: 'properties',
+    type: 'node',
     //type: 'input',
     data: { label: 'Node 1', parameters: { test: 'hello world' } },
     position: { x: 250, y: 0 }
@@ -31,10 +30,7 @@ function App() {
   const [nodes, , onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [selectedNode, onSelectedNodeChange] = useState({});
-  const nodeTypes = useMemo(
-    () => ({ noProperties: NoPropertiesNode, properties: PropertiesNode }),
-    []
-  );
+  const nodeTypes = useMemo(() => ({ node: CustomNode }), []);
 
   const onConnect = useCallback(
     (params: Edge | Connection) => setEdges((els) => addEdge(params, els)),

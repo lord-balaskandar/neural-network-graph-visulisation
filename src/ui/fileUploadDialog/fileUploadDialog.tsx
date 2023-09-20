@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import './fileUploadDialog.css';
 import dagre from 'dagre';
+import Modal from '../modal/modal';
 
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
@@ -58,7 +59,12 @@ function FileUploadDialog({
       const fileReader = new FileReader();
       fileReader.readAsText(e.target.files[0]);
       let data: {
-        nodes: { id: string; type: string; parameters: object | null }[];
+        nodes: {
+          id: string;
+          type: string;
+          parameters: object | null;
+          position: object | null;
+        }[];
         edges: any;
       };
       fileReader.onload = (e: any) => {
@@ -70,24 +76,49 @@ function FileUploadDialog({
           setInvalidFile(true);
           return;
         }
-        let formatted = getLayoutedElements(
-          data.nodes.map(
-            (item: { id: string; type: string; parameters: object | null }) => {
-              return {
-                id: item.id,
-                type:
-                  item.parameters && Object.keys(item.parameters).length > 0
-                    ? 'properties'
-                    : 'noProperties',
-                data: Object.assign(item.parameters ? item.parameters : {}, {
-                  label: item.type
-                })
-              };
-            }
-          ),
-          data.edges,
-          'TB'
-        );
+        let formatted = data.nodes.some((item) => !item.position)
+          ? getLayoutedElements(
+              data.nodes.map(
+                (item: {
+                  id: string;
+                  type: string;
+                  parameters: object | null;
+                  position: object | null;
+                }) => {
+                  return {
+                    id: item.id,
+                    type: 'node',
+                    data: {
+                      label: item.type,
+                      parameters: item.parameters ? item.parameters : {}
+                    }
+                  };
+                }
+              ),
+              data.edges,
+              'TB'
+            )
+          : {
+              nodes: data.nodes.map(
+                (item: {
+                  id: string;
+                  type: string;
+                  parameters: object | null;
+                  position: object | null;
+                }) => {
+                  return {
+                    id: item.id,
+                    type: 'node',
+                    data: {
+                      label: item.type,
+                      parameters: item.parameters ? item.parameters : {}
+                    },
+                    position: item.position
+                  };
+                }
+              ),
+              edges: data.edges
+            };
         file.current.value = null;
 
         setNodes(formatted.nodes);
@@ -101,35 +132,31 @@ function FileUploadDialog({
   }
   return (
     <>
-      <div className="main-container">
-        <div className={'modal-container'}>
-          <h3 className={'text' + +(openModal ? 'show' : 'closed')}>
-            JSON Upload
-          </h3>
-          <div className={'text' + +(openModal ? 'show' : 'closed')}>
-            Please select a JSON file to upload and use with the solution.
-          </div>
-          <div>
-            <input
-              id="file"
-              type="file"
-              onChange={handleFileChange}
-              title="Upload"
-              accept=".json,application/json"
-              ref={file}
-            />
-            <p
-              style={{
-                color: 'red',
-                visibility: invalidFile ? 'visible' : 'hidden'
-              }}
-            >
-              Invalid File
-            </p>
-            <button onClick={() => setOpenModal(false)}>Close</button>
-          </div>
+      <Modal openModal={openModal} setOpenModal={setOpenModal}>
+        <h3 className={'text'}>JSON Upload</h3>
+        <div className={'text'}>
+          Please select a JSON file to upload and use with the solution.
         </div>
-      </div>
+        <div>
+          <input
+            id="file"
+            type="file"
+            onChange={handleFileChange}
+            title="Upload"
+            accept=".json,application/json"
+            ref={file}
+          />
+          <p
+            style={{
+              color: 'red',
+              visibility: invalidFile ? 'visible' : 'hidden'
+            }}
+          >
+            Invalid File
+          </p>
+          <button onClick={() => setOpenModal(false)}>Close</button>
+        </div>
+      </Modal>
     </>
   );
 }
