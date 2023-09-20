@@ -7,6 +7,15 @@
   border-radius: 5px;
   background: white;
   max-width: 400px;
+  opacity: 1;
+}
+
+.propertiesNode.show {
+  opacity: 1;
+}
+
+.propertiesNode.hide {
+  opacity: 0.3;
 }
 
 .properties {

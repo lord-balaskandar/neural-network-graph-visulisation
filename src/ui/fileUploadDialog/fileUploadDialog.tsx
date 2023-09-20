@@ -91,7 +91,8 @@ function FileUploadDialog({
                     type: 'node',
                     data: {
                       label: item.type,
-                      parameters: item.parameters ? item.parameters : {}
+                      parameters: item.parameters ? item.parameters : {},
+                      show: true
                     }
                   };
                 }
@@ -112,7 +113,8 @@ function FileUploadDialog({
                     type: 'node',
                     data: {
                       label: item.type,
-                      parameters: item.parameters ? item.parameters : {}
+                      parameters: item.parameters ? item.parameters : {},
+                      show: true
                     },
                     position: item.position
                   };

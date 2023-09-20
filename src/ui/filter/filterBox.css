@@ -1,0 +1,23 @@
+.filter-container {
+  width: fit-content;
+  height: fit-content;
+  margin-top: 92.5vh;
+
+  color: black;
+  border: 1px, solid, black;
+  transition: 0.3s all; /* animation duration */
+  z-index: 100;
+  background-color: white;
+  text-align: left;
+  position: absolute;
+}
+
+.filter-container.show {
+  margin-left: 79px;
+  opacity: 1;
+}
+
+.filter-container.closed {
+  margin-left: -79px;
+  opacity: 0;
+}

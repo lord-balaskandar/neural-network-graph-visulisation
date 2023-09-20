@@ -7,7 +7,7 @@ function CustomNode({ data }: any) {
   const [label, setLabel] = useState(data.label);
 
   return (
-    <div className="propertiesNode">
+    <div className={'propertiesNode ' + (data.show ? 'show' : 'hide')}>
       <Handle type="target" position={Position.Top} />
       <div className="labelInput" style={{ background: ColorMap[label] }}>
         {label}
