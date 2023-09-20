@@ -86,7 +86,11 @@ function ParameterInput({
             defaultValue={values[key]}
             onChange={handleLabelChange}
           />
-          <button id={'x' + key} onClick={removeParamter}>
+          <button
+            className="customButton delete x"
+            id={'x' + key}
+            onClick={removeParamter}
+          >
             X
           </button>
         </div>

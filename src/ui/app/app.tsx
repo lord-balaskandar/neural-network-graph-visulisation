@@ -107,7 +107,8 @@ function App() {
             '',
           data: {
             label: 'conv',
-            parameters: {}
+            parameters: {},
+            show: filterValue === 'conv' || filterValue === 'none'
           },
           position: { x: 100, y: 100 },
           type: 'node'
@@ -198,7 +199,7 @@ function App() {
         />
         <Controls className="controls" showFitView={false}>
           <ControlButton
-            title="filter"
+            title="Filter"
             onClick={async () => {
               setShowFilter(!showFilter);
             }}
@@ -216,8 +217,8 @@ function App() {
           <ControlButton onClick={() => setOpenFileUpload(true)} title="upload">
             🡅
           </ControlButton>
-          <ControlButton title="upload">💾</ControlButton>
-          <ControlButton onClick={addNewNode} title="save">
+          <ControlButton title="Save">💾</ControlButton>
+          <ControlButton onClick={addNewNode} title="New Node">
             ➕
           </ControlButton>
         </Controls>

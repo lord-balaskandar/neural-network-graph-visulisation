@@ -159,6 +159,7 @@ function FileUploadDialog({
             title="Upload"
             accept=".json,application/json"
             ref={file}
+            className="customButton"
           />
           <p
             style={{
@@ -168,7 +169,9 @@ function FileUploadDialog({
           >
             Invalid File
           </p>
-          <button onClick={() => setOpenModal(false)}>Close</button>
+          <button className="customButton" onClick={() => setOpenModal(false)}>
+            Close
+          </button>
         </div>
       </Modal>
     </>

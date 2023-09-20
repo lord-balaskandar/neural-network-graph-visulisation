@@ -115,16 +115,21 @@ function Sidebar({
             ) : (
               <></>
             )}
-            <div>
-              <button id={node.id} onClick={addParameter}>
-                Add Parameter
-              </button>
-            </div>
-            <div>
-              <button id={node.id} onClick={deleteNode}>
-                Delete
-              </button>
-            </div>
+            <button
+              className="customButton sidebar"
+              id={node.id}
+              onClick={addParameter}
+            >
+              Add Parameter
+            </button>
+
+            <button
+              className="customButton delete"
+              id={node.id}
+              onClick={deleteNode}
+            >
+              Delete
+            </button>
           </div>
         );
       })}
@@ -134,14 +139,28 @@ function Sidebar({
             <h3>{'Edge ' + edge.id}</h3>
             <div>{'Source: ' + edge.source}</div>
             <div>{'Target: ' + edge.target}</div>
-            <button id={edge.id} onClick={deleteEdge}>
+            <button
+              className="customButton delete"
+              id={edge.id}
+              onClick={deleteEdge}
+            >
               Delete
             </button>
           </div>
         );
       })}
-      <div style={{ paddingTop: '30px' }}>
-        <button onClick={deleteSelected}>Delete Selected</button>
+      <div
+        style={{
+          paddingTop: '30px',
+          visibility:
+            selectedNode.nodes.length + selectedNode.edges.length > 1
+              ? 'visible'
+              : 'hidden'
+        }}
+      >
+        <button className="customButton delete" onClick={deleteSelected}>
+          Delete Selected
+        </button>
       </div>
     </div>
   );
