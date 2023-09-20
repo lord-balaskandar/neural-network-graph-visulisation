@@ -14,11 +14,10 @@ import ReactFlow, {
   MiniMap,
   ControlButton
 } from 'reactflow';
-import './app.css';
-import 'reactflow/dist/style.css';
-import ParameterInput from '../paramaterInput/parameterInput';
 import Sidebar from '../sidebar/sidebar';
 import colorMap from '../../common/colorMap';
+import './app.css';
+import 'reactflow/dist/style.css';
 
 function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
