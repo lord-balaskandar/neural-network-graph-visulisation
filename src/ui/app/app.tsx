@@ -18,6 +18,7 @@ import './app.css';
 import 'reactflow/dist/style.css';
 import ParameterInput from '../paramaterInput/parameterInput';
 import Sidebar from '../sidebar/sidebar';
+import colorMap from '../../common/colorMap';
 
 function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -156,7 +157,15 @@ function App() {
           variant={BackgroundVariant.Lines}
           className="background"
         />
-        <MiniMap nodeStrokeWidth={3} position="top-left" zoomable pannable />
+        <MiniMap
+          nodeStrokeWidth={3}
+          position="top-left"
+          nodeColor={(node: { data: { label: string | number } }): any => {
+            return colorMap[node.data.label];
+          }}
+          zoomable
+          pannable
+        />
         <Controls className="controls" showFitView={false}>
           <ControlButton onClick={() => setOpenFileUpload(true)} title="upload">
             🡅
