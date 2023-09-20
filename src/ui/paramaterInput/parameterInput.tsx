@@ -19,7 +19,7 @@ function ParameterInput({
   updateReactFlowKey: Function;
 }) {
   const [values, setValues] = useState(node.data.parameters);
-
+  const [parametersKey, updateParametersKey] = useState(node.id + ':' + 0);
   const handleLabelChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       nodes[nodes.map((item) => item.id).indexOf(node.id)].data.parameters[
@@ -65,11 +65,14 @@ function ParameterInput({
       setValues(newObj);
       setNodes(nodes);
       updateReactFlowKey(reactFlowKey + 1);
+      updateParametersKey(
+        node.id + ':' + (parseInt(parametersKey.split(':')[1]) + 1)
+      );
     },
     [node, nodes, setNodes]
   );
   return (
-    <div>
+    <div key={node.id + ':' + parametersKey}>
       {Object.keys(values).map((key) => (
         <div>
           <input

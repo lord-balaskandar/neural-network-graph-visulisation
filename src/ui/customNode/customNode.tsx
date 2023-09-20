@@ -4,7 +4,7 @@ import { Handle, Position } from 'reactflow';
 import ColorMap from '../../common/colorMap';
 
 function CustomNode({ data }: any) {
-  const [label, setLabel] = useState(data.label);
+  const [label, setLabel] = useState(data.label); //store label
 
   return (
     <div className={'propertiesNode ' + (data.show ? 'show' : 'hide')}>
