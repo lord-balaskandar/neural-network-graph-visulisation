@@ -91,7 +91,8 @@ function FileUploadDialog({
                     type: 'node',
                     data: {
                       label: item.type,
-                      parameters: item.parameters ? item.parameters : {}
+                      parameters: item.parameters ? item.parameters : {},
+                      show: true
                     }
                   };
                 }
@@ -112,7 +113,8 @@ function FileUploadDialog({
                     type: 'node',
                     data: {
                       label: item.type,
-                      parameters: item.parameters ? item.parameters : {}
+                      parameters: item.parameters ? item.parameters : {},
+                      show: true
                     },
                     position: item.position
                   };
@@ -157,6 +159,7 @@ function FileUploadDialog({
             title="Upload"
             accept=".json,application/json"
             ref={file}
+            className="customButton"
           />
           <p
             style={{
@@ -166,7 +169,9 @@ function FileUploadDialog({
           >
             Invalid File
           </p>
-          <button onClick={() => setOpenModal(false)}>Close</button>
+          <button className="customButton" onClick={() => setOpenModal(false)}>
+            Close
+          </button>
         </div>
       </Modal>
     </>

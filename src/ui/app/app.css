@@ -6,7 +6,13 @@ body,
 }
 
 .App {
-  font-family: sans-serif;
+  font-family:
+    Trebuchet MS,
+    Lucida Grande,
+    Lucida Sans Unicode,
+    Lucida Sans,
+    Tahoma,
+    sans-serif;
   text-align: center;
   width: 100vw;
   height: 100vh;
@@ -47,12 +53,118 @@ body,
 ReactFlow {
   z-index: -1;
 }
+.filter-container {
+  width: fit-content;
+  height: fit-content;
+  margin-top: 92.5vh;
 
-@keyframes fadein {
-  0% {
-    opacity: 0;
+  color: black;
+  border: 1px, solid, black;
+  transition: 0.3s all; /* animation duration */
+  z-index: 100;
+  background-color: white;
+  text-align: left;
+  position: absolute;
+}
+
+.filter-container.show {
+  margin-left: 79px;
+  opacity: 1;
+}
+
+.filter-container.closed {
+  margin-left: -79px;
+  opacity: 0;
+}
+
+.customButton {
+  cursor: pointer;
+  outline: 0;
+  color: #fff;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  border: 1px solid transparent;
+  padding: 6px 12px;
+  font-size: 16px;
+  border-radius: 0.25rem;
+  transition:
+    color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  :hover {
+    color: #fff;
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
   }
-  100% {
-    opacity: 1;
+}
+
+.customButton.sidebar {
+  font-size: 9px;
+  margin: 10px;
+}
+
+.customButton.delete {
+  background-color: red;
+  border-color: red;
+  font-size: 9px;
+  margin: 10px;
+}
+
+.customButton.delete.x {
+  font-size: 5px;
+}
+
+Input {
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  appearance: none;
+  border-radius: 4px;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  :focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
   }
+}
+
+Select {
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  appearance: none;
+  border-radius: 4px;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  :focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+  }
+}
+
+h3 {
+  text-decoration: underline;
 }

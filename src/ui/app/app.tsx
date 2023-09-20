@@ -18,6 +18,7 @@ import Sidebar from '../sidebar/sidebar';
 import colorMap from '../../common/colorMap';
 import './app.css';
 import 'reactflow/dist/style.css';
+import FilterBox from '../filter/filterBox';
 
 function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -29,6 +30,8 @@ function App() {
   const [showSideBar, setShowSideBar] = useState(false);
   const [sideBarKey, updateSidebarKey] = useState(0);
   const [reactFlowKey, updateReactFlowKey] = useState(0);
+  const [showFilter, setShowFilter] = useState(false);
+  const [filterValue, setFilterValue] = useState('No Filter');
   const nodeTypes = useMemo(() => ({ node: CustomNode }), []);
 
   const onConnect = useCallback(
@@ -104,7 +107,8 @@ function App() {
             '',
           data: {
             label: 'conv',
-            parameters: {}
+            parameters: {},
+            show: filterValue === 'conv' || filterValue === 'none'
           },
           position: { x: 100, y: 100 },
           type: 'node'
@@ -113,6 +117,10 @@ function App() {
     );
     updateReactFlowKey(reactFlowKey + 1);
   }, [nodes, setNodes]);
+
+  function timeout(delay: number) {
+    return new Promise((res) => setTimeout(res, delay));
+  }
 
   useEffect(() => {
     setOpenFileUpload(true);
@@ -189,10 +197,19 @@ function App() {
           zoomable
           pannable
         />
-        <Controls className="controls" showFitView={false}></Controls>
+        <Controls className="controls" showFitView={false}>
+          <ControlButton
+            title="Filter"
+            onClick={async () => {
+              setShowFilter(!showFilter);
+            }}
+          >
+            🔎
+          </ControlButton>
+        </Controls>
         <Controls
           className="controls"
-          style={{ marginLeft: '50px' }}
+          style={{ marginLeft: '50px', paddingBottom: '17px' }}
           showFitView={false}
           showInteractive={false}
           showZoom={false}
@@ -200,10 +217,20 @@ function App() {
           <ControlButton onClick={() => setOpenFileUpload(true)} title="upload">
             🡅
           </ControlButton>
-          <ControlButton onClick={addNewNode} title="save">
+          <ControlButton title="Save">💾</ControlButton>
+          <ControlButton onClick={addNewNode} title="New Node">
             ➕
           </ControlButton>
         </Controls>
+        <FilterBox
+          showFilter={showFilter}
+          filterValue={filterValue + ''}
+          setFilterValue={setFilterValue}
+          nodes={nodes}
+          setNodes={setNodes}
+          reactFlowKey={reactFlowKey}
+          updateReactFlowKey={updateReactFlowKey}
+        />
       </ReactFlow>
     </div>
   );
