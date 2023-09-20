@@ -8,7 +8,9 @@ function Sidebar({
   showSideBar,
   selectedNode,
   nodes,
+  edges,
   setNodes,
+  setEdges,
   addParameter,
   reactFlowKey,
   updateReactFlowKey
@@ -18,7 +20,9 @@ function Sidebar({
   showSideBar: boolean;
   selectedNode: any;
   nodes: any[];
+  edges: any[];
   setNodes: Function;
+  setEdges: Function;
   addParameter: any;
   reactFlowKey: number;
   updateReactFlowKey: Function;
@@ -28,6 +32,47 @@ function Sidebar({
     temp[temp.map((item) => item.id).indexOf(e.target.id.slice(1))].data.label =
       e.target.value;
     setNodes(temp);
+    updateReactFlowKey(reactFlowKey + 1);
+  }
+
+  function deleteNode(e: any) {
+    setNodes(nodes.filter((item) => item.id !== e.target.id));
+    setEdges(
+      edges.filter(
+        (item) => item.source !== e.target.id && item.targer !== e.target.id
+      )
+    );
+    updateReactFlowKey(reactFlowKey + 1);
+  }
+
+  function deleteEdge(e: any) {
+    setEdges(edges.filter((item) => item.id !== e.target.id));
+    updateReactFlowKey(reactFlowKey + 1);
+  }
+
+  function deleteSelected(e: any) {
+    setNodes(
+      nodes.filter(
+        (item) =>
+          selectedNode.nodes
+            .map((n: { id: string }) => n.id)
+            .indexOf(item.id) === -1
+      )
+    );
+    setEdges(
+      edges.filter(
+        (item) =>
+          selectedNode.edges
+            .map((e: { id: string }) => e.id)
+            .indexOf(item.id) === -1 ||
+          (selectedNode.nodes
+            .map((n: { id: any }) => n.id)
+            .indexOf(item.source) === -1 &&
+            selectedNode.nodes
+              .map((n: { id: any }) => n.id)
+              .indexOf(item.target) === -1)
+      )
+    );
     updateReactFlowKey(reactFlowKey + 1);
   }
 
@@ -63,6 +108,8 @@ function Sidebar({
                   setNodes={setNodes}
                   sideBarKey={sideBarKey}
                   updateSideBarKey={updateSidebarKey}
+                  reactFlowKey={reactFlowKey}
+                  updateReactFlowKey={updateReactFlowKey}
                 />
               </div>
             ) : (
@@ -71,6 +118,11 @@ function Sidebar({
             <div>
               <button id={node.id} onClick={addParameter}>
                 Add Parameter
+              </button>
+            </div>
+            <div>
+              <button id={node.id} onClick={deleteNode}>
+                Delete
               </button>
             </div>
           </div>
@@ -82,9 +134,15 @@ function Sidebar({
             <h3>{'Edge ' + edge.id}</h3>
             <div>{'Source: ' + edge.source}</div>
             <div>{'Target: ' + edge.target}</div>
+            <button id={edge.id} onClick={deleteEdge}>
+              Delete
+            </button>
           </div>
         );
       })}
+      <div style={{ paddingTop: '30px' }}>
+        <button onClick={deleteSelected}>Delete Selected</button>
+      </div>
     </div>
   );
 }

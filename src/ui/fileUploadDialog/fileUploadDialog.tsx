@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { MarkerType } from 'reactflow';
 import './fileUploadDialog.css';
 import dagre from 'dagre';
 import Modal from '../modal/modal';
@@ -122,7 +123,18 @@ function FileUploadDialog({
         file.current.value = null;
 
         setNodes(formatted.nodes);
-        setEdges(formatted.edges);
+        setEdges(
+          formatted.edges.map((item: any) =>
+            Object.assign(item, {
+              markerEnd: {
+                type: MarkerType.Arrow,
+                color: '#000000',
+                width: 20,
+                height: 20
+              }
+            })
+          )
+        );
         setOpenModal(false);
         setInvalidFile(false);
       };

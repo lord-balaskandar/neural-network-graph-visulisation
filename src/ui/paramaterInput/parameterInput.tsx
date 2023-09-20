@@ -6,13 +6,17 @@ function ParameterInput({
   nodes,
   setNodes,
   sideBarKey,
-  updateSideBarKey
+  updateSideBarKey,
+  reactFlowKey,
+  updateReactFlowKey
 }: {
   node: any;
   nodes: any[];
   setNodes: Function;
   sideBarKey: number;
   updateSideBarKey: Function;
+  reactFlowKey: number;
+  updateReactFlowKey: Function;
 }) {
   const [values, setValues] = useState(node.data.parameters);
 
@@ -25,6 +29,7 @@ function ParameterInput({
         nodes[nodes.map((item) => item.id).indexOf(node.id)].data.parameters
       );
       setNodes(nodes);
+      updateReactFlowKey(reactFlowKey + 1);
     },
     [node, nodes, setNodes]
   );
@@ -38,6 +43,7 @@ function ParameterInput({
       ];
       setNodes(temp);
       updateSideBarKey(sideBarKey + 1);
+      updateReactFlowKey(reactFlowKey + 1);
     },
     [node, nodes, setNodes, sideBarKey, updateSideBarKey]
   );
@@ -58,6 +64,7 @@ function ParameterInput({
 
       setValues(newObj);
       setNodes(nodes);
+      updateReactFlowKey(reactFlowKey + 1);
     },
     [node, nodes, setNodes]
   );
