@@ -93,6 +93,28 @@ function App() {
     ]
   );
 
+  const addNewNode = useCallback(() => {
+    setNodes(
+      nodes.concat([
+        {
+          id:
+            parseInt(
+              nodes.sort((a, b) => parseInt(b.id) - parseInt(a.id))[0].id
+            ) +
+            1 +
+            '',
+          data: {
+            label: 'conv',
+            parameters: {}
+          },
+          position: { x: 100, y: 100 },
+          type: 'node'
+        }
+      ])
+    );
+    updateReactFlowKey(reactFlowKey + 1);
+  }, [nodes, setNodes]);
+
   useEffect(() => {
     setOpenFileUpload(true);
   }, []);
@@ -168,9 +190,19 @@ function App() {
           zoomable
           pannable
         />
-        <Controls className="controls" showFitView={false}>
+        <Controls className="controls" showFitView={false}></Controls>
+        <Controls
+          className="controls"
+          style={{ marginLeft: '50px' }}
+          showFitView={false}
+          showInteractive={false}
+          showZoom={false}
+        >
           <ControlButton onClick={() => setOpenFileUpload(true)} title="upload">
             🡅
+          </ControlButton>
+          <ControlButton onClick={addNewNode} title="save">
+            ➕
           </ControlButton>
         </Controls>
       </ReactFlow>
