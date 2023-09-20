@@ -1,9 +1,9 @@
 const colorMap: { [key: string]: string } = {
-  conv: '#3364ff',
-  relu: '#9b0000',
-  'max pool': '#009b2a',
-  concat: '#9b6a00',
-  dense: '#FFA500'
+  conv: '#3F51B5',
+  relu: '#4B1B16',
+  'max pool': '#335533',
+  concat: '#59423B',
+  dense: '#736E00'
 };
 
 export default colorMap;

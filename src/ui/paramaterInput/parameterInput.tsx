@@ -65,9 +65,9 @@ function ParameterInput({
       setValues(newObj);
       setNodes(nodes);
       updateReactFlowKey(reactFlowKey + 1);
-      updateParametersKey(
-        node.id + ':' + (parseInt(parametersKey.split(':')[1]) + 1)
-      );
+      // updateParametersKey(
+      //   node.id + ':' + (parseInt(parametersKey.split(':')[1]) + 1)
+      // );
     },
     [node, nodes, setNodes]
   );
@@ -89,11 +89,7 @@ function ParameterInput({
             defaultValue={values[key]}
             onChange={handleLabelChange}
           />
-          <button
-            className="customButton delete x"
-            id={'x' + key}
-            onClick={removeParamter}
-          >
+          <button className="delete x" id={'x' + key} onClick={removeParamter}>
             X
           </button>
         </div>

@@ -84,7 +84,7 @@ function Sidebar({
       {selectedNode.nodes.map((node: any) => {
         return (
           <div className="sidebar">
-            <h3>{'Node ' + node.id}</h3>
+            <h3 className="nodeTitle">{'Node ' + node.id}</h3>
             {
               <div>
                 <label>Type: </label>
@@ -136,7 +136,7 @@ function Sidebar({
       {selectedNode.edges.map((edge: any) => {
         return (
           <div className="sidebar">
-            <h3>{'Edge ' + edge.id}</h3>
+            <h3 className="nodeTitle">{'Edge ' + edge.id}</h3>
             <div>{'Source: ' + edge.source}</div>
             <div>{'Target: ' + edge.target}</div>
             <button

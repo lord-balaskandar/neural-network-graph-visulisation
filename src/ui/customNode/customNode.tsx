@@ -8,7 +8,11 @@ function CustomNode({ data }: any) {
 
   return (
     <div className={'propertiesNode ' + (data.show ? 'show' : 'hide')}>
-      <Handle type="target" position={Position.Top} />
+      <Handle
+        type="target"
+        position={Position.Top}
+        style={{ backgroundColor: 'black' }}
+      />
       <div className="labelInput" style={{ background: ColorMap[label] }}>
         {label}
       </div>

@@ -152,6 +152,9 @@ function FileUploadDialog({
           Please select a JSON file to upload and use with the solution.
         </div>
         <div>
+          <button className="customButton" onClick={() => file.current.click()}>
+            Upload
+          </button>
           <input
             id="file"
             type="file"
@@ -159,8 +162,11 @@ function FileUploadDialog({
             title="Upload"
             accept=".json,application/json"
             ref={file}
-            className="customButton"
+            style={{ display: 'none' }}
           />
+          <button className="customButton" onClick={() => setOpenModal(false)}>
+            Close
+          </button>
           <p
             style={{
               color: 'red',
@@ -169,9 +175,6 @@ function FileUploadDialog({
           >
             Invalid File
           </p>
-          <button className="customButton" onClick={() => setOpenModal(false)}>
-            Close
-          </button>
         </div>
       </Modal>
     </>
