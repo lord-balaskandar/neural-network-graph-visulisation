@@ -28,6 +28,7 @@ function App() {
   const [toolTipData, setToolTipData] = useState({ content: '', x: 0, y: 0 });
   const [showSideBar, setShowSideBar] = useState(false);
   const [sideBarKey, updateSidebarKey] = useState(0);
+  const [reactFlowKey, updateReactFlowKey] = useState(0);
   const nodeTypes = useMemo(() => ({ node: CustomNode }), []);
 
   const onConnect = useCallback(
@@ -60,7 +61,7 @@ function App() {
   const onSelectionChange = useCallback(
     (params: any) => {
       setSelectedNode(params);
-      setShowSideBar(params.nodes.length > 0);
+      setShowSideBar(params.nodes.length > 0 || params.edges.length > 0);
     },
     [setSelectedNode, setShowSideBar]
   );
@@ -112,6 +113,8 @@ function App() {
         nodes={nodes}
         setNodes={setNodes}
         addParameter={addParameter}
+        reactFlowKey={reactFlowKey}
+        updateReactFlowKey={updateReactFlowKey}
       />
       <div
         className="toolTip"
@@ -124,6 +127,7 @@ function App() {
         {toolTipData.content}
       </div>
       <ReactFlow
+        key={reactFlowKey}
         data-testid="reactflow"
         nodes={nodes}
         edges={edges}
