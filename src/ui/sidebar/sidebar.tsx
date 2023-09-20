@@ -50,6 +50,32 @@ function Sidebar({
     updateReactFlowKey(reactFlowKey + 1);
   }
 
+  function deleteSelected(e: any) {
+    setNodes(
+      nodes.filter(
+        (item) =>
+          selectedNode.nodes
+            .map((n: { id: string }) => n.id)
+            .indexOf(item.id) === -1
+      )
+    );
+    setEdges(
+      edges.filter(
+        (item) =>
+          selectedNode.edges
+            .map((e: { id: string }) => e.id)
+            .indexOf(item.id) === -1 ||
+          (selectedNode.nodes
+            .map((n: { id: any }) => n.id)
+            .indexOf(item.source) === -1 &&
+            selectedNode.nodes
+              .map((n: { id: any }) => n.id)
+              .indexOf(item.target) === -1)
+      )
+    );
+    updateReactFlowKey(reactFlowKey + 1);
+  }
+
   return (
     <div
       key={sideBarKey}
@@ -93,6 +119,8 @@ function Sidebar({
               <button id={node.id} onClick={addParameter}>
                 Add Parameter
               </button>
+            </div>
+            <div>
               <button id={node.id} onClick={deleteNode}>
                 Delete
               </button>
@@ -112,6 +140,9 @@ function Sidebar({
           </div>
         );
       })}
+      <div style={{ paddingTop: '30px' }}>
+        <button onClick={deleteSelected}>Delete Selected</button>
+      </div>
     </div>
   );
 }
