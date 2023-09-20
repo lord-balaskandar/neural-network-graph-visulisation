@@ -1,0 +1,20 @@
+.modalMain {
+  width: 500px;
+  position: absolute;
+  opacity: 1;
+  color: black;
+  transition: 0.3s all; /* animation duration */
+  z-index: 101;
+}
+
+.modalMain.show {
+  margin-bottom: 10%;
+  opacity: 1;
+  color: black;
+}
+
+.modalMain.closed {
+  margin-top: 100%;
+  opacity: 0;
+  color: white;
+}

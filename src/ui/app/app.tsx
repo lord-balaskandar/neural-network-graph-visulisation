@@ -1,6 +1,5 @@
-import { useState, useCallback, useMemo } from 'react';
-import NoPropertiesNode from '../noPropertiesNode/noPropertiesNode';
-import PropertiesNode from '../propertiesNode/propertiesNode';
+import { useState, useCallback, useMemo, useEffect } from 'react';
+import CustomNode from '../customNode/customNode';
 import FileUploadDialog from '../fileUploadDialog/fileUploadDialog';
 import ReactFlow, {
   Node,
@@ -17,53 +16,21 @@ import ReactFlow, {
 } from 'reactflow';
 import './app.css';
 import 'reactflow/dist/style.css';
-
-const initialNodes: Node[] = [
-  {
-    id: '1',
-    type: 'noProperties',
-    //type: 'input',
-    data: { label: 'Node 1' },
-    position: { x: 250, y: 0 }
-  },
-  {
-    id: '2',
-    data: {
-      label: 'Node 2',
-      parameters: {
-        W: '(100x32x48)',
-        H: '(200x34x56)',
-        x: 'x',
-        y: 'y',
-        z: 'z',
-        t: 'T',
-        tt: 'TT'
-      }
-    },
-    position: { x: 100, y: 100 },
-    type: 'properties'
-  },
-  { id: '3', data: { label: 'Node 3' }, position: { x: 400, y: 100 } }
-];
-
-const initialEdges: Edge[] = [
-  { id: 'e1-2', source: '1', target: '2', animated: true },
-  { id: 'e1-3', source: '1', target: '3' }
-];
+import ParameterInput from '../paramaterInput/parameterInput';
+import Sidebar from '../sidebar/sidebar';
+import colorMap from '../../common/colorMap';
 
 function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  const [selectedNode, onSelectedNodeChange] = useState({});
-  const [locked, setLock] = useState(false);
+  const [selectedNode, setSelectedNode] = useState({ nodes: [], edges: [] });
   const [openFileUpload, setOpenFileUpload] = useState(false);
   const [showToolTip, setShowToolTip] = useState(false);
   const [toolTipData, setToolTipData] = useState({ content: '', x: 0, y: 0 });
-
-  const nodeTypes = useMemo(
-    () => ({ noProperties: NoPropertiesNode, properties: PropertiesNode }),
-    []
-  );
+  const [showSideBar, setShowSideBar] = useState(false);
+  const [sideBarKey, updateSidebarKey] = useState(0);
+  const [reactFlowKey, updateReactFlowKey] = useState(0);
+  const nodeTypes = useMemo(() => ({ node: CustomNode }), []);
 
   const onConnect = useCallback(
     (params: Edge | Connection) => setEdges((els) => addEdge(params, els)),
@@ -92,21 +59,64 @@ function App() {
     setShowToolTip(true);
   }, []);
 
+  const onSelectionChange = useCallback(
+    (params: any) => {
+      setSelectedNode(params);
+      setShowSideBar(params.nodes.length > 0 || params.edges.length > 0);
+    },
+    [setSelectedNode, setShowSideBar]
+  );
+
+  const addParameter = useCallback(
+    (e: any) => {
+      let temp = nodes;
+      temp[temp.map((item) => item.id).indexOf(e.target.id)].data.parameters[
+        '  '
+      ] = '   ';
+      setNodes(temp);
+      let temp2 = selectedNode;
+      let temp3 = selectedNode.nodes as typeof nodes;
+      temp3[temp3.map((item) => item.id).indexOf(e.target.id)].data.parameters[
+        '  '
+      ] = '   ';
+      temp2.nodes = temp3 as never[];
+      setSelectedNode(temp2);
+      updateSidebarKey(sideBarKey + 1);
+    },
+    [
+      nodes,
+      setNodes,
+      selectedNode,
+      setSelectedNode,
+      sideBarKey,
+      updateSidebarKey
+    ]
+  );
+
+  useEffect(() => {
+    setOpenFileUpload(true);
+  }, []);
+
   return (
     <div className="App">
-      {JSON.stringify(selectedNode)}
-      <div
-        className={
-          'fileUploadContainer ' + (openFileUpload ? 'show' : 'closed')
-        }
-      >
-        <FileUploadDialog
-          openModal={openFileUpload}
-          setOpenModal={setOpenFileUpload}
-          setNodes={setNodes}
-          setEdges={setEdges}
-        />
-      </div>
+      <FileUploadDialog
+        openModal={openFileUpload}
+        setOpenModal={setOpenFileUpload}
+        setNodes={setNodes}
+        setEdges={setEdges}
+      />
+
+      <Sidebar
+        sideBarKey={sideBarKey}
+        updateSidebarKey={updateSidebarKey}
+        showSideBar={showSideBar}
+        selectedNode={selectedNode}
+        nodes={nodes}
+        setNodes={setNodes}
+        addParameter={addParameter}
+        reactFlowKey={reactFlowKey}
+        updateReactFlowKey={updateReactFlowKey}
+      />
       <div
         className="toolTip"
         style={{
@@ -118,13 +128,14 @@ function App() {
         {toolTipData.content}
       </div>
       <ReactFlow
+        key={reactFlowKey}
         data-testid="reactflow"
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
-        onSelectionChange={onSelectedNodeChange}
+        onSelectionChange={onSelectionChange}
         onNodeMouseEnter={nodeOnHoverEnter}
         onNodeMouseLeave={nodeOnHoverLeave}
         onNodeMouseMove={nodeMouseUpdate}
@@ -146,10 +157,18 @@ function App() {
           variant={BackgroundVariant.Lines}
           className="background"
         />
-        <MiniMap nodeStrokeWidth={3} position="top-left" zoomable pannable />
+        <MiniMap
+          nodeStrokeWidth={3}
+          position="top-left"
+          nodeColor={(node: { data: { label: string | number } }): any => {
+            return colorMap[node.data.label];
+          }}
+          zoomable
+          pannable
+        />
         <Controls className="controls" showFitView={false}>
           <ControlButton onClick={() => setOpenFileUpload(true)} title="upload">
-            U
+            🡅
           </ControlButton>
         </Controls>
       </ReactFlow>
