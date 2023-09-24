@@ -31,7 +31,7 @@ function ParameterInput({
         nodes[nodes.map((item) => item.id).indexOf(node.id)].data.parameters
       );
       setNodes(nodes);
-      updateReactFlowKey(reactFlowKey + 1);
+      //updateReactFlowKey(reactFlowKey + 1);
     },
     [node, nodes, setNodes]
   );
