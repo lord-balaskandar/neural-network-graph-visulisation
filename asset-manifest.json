@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/neural-network-graph-visulisation/static/css/main.c6ae90ef.css",
+    "main.js": "/neural-network-graph-visulisation/static/js/main.ef695582.js",
+    "static/js/787.b2eba47f.chunk.js": "/neural-network-graph-visulisation/static/js/787.b2eba47f.chunk.js",
+    "index.html": "/neural-network-graph-visulisation/index.html",
+    "main.c6ae90ef.css.map": "/neural-network-graph-visulisation/static/css/main.c6ae90ef.css.map",
+    "main.ef695582.js.map": "/neural-network-graph-visulisation/static/js/main.ef695582.js.map",
+    "787.b2eba47f.chunk.js.map": "/neural-network-graph-visulisation/static/js/787.b2eba47f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c6ae90ef.css",
+    "static/js/main.ef695582.js"
+  ]
+}
